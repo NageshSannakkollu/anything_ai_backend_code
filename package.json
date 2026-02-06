@@ -9,5 +9,13 @@
     "node": "^25.6.0",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
+  },
+
+  "scripts": {
+    "start": "node server.js",
+    "build": "npm rebuild sqlite3",
+    "postinstall": "npm rebuild sqlite3"
   }
 }
+
+
