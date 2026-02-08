@@ -13,6 +13,7 @@ const User = {
             }
         );
     },
+    
     getByEmail:(email,callback) => {
         // console.log("Email:",email)
         db.get(`SELECT * FROM user WHERE email='${email}'`,
@@ -20,14 +21,16 @@ const User = {
             callback(err,user)  
         })
     },
+
     getProfileEmail:(email,callback) => {
         db.get(`SELECT * FROM user WHERE email='${email}'`,
         function (err,user){
             callback(err,user)  
         })
     },
-    deleteUser:(username,callback) => {
-        db.run(`DELETE FROM user WHERE username='${username}'`,
+
+    deleteUser:(id,callback) => {
+        db.run(`DELETE FROM user WHERE id=${id}`,
             function(err,user){
                 callback(err,user)
             }

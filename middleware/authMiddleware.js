@@ -12,7 +12,7 @@ const authenticateToken = async(req,res,next) => {
         }
         jwt.verify(jwtToken,`${process.env.JWT_SECRET}`,async(error,payload)=>{
             if(error){
-                console.log("Error:","Error at verification")
+                //console.log("Error:","Error at verification")
                 res.status(401).json({message:"Invalid JWT token"})
             }
             else{

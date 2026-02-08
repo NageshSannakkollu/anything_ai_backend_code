@@ -4,6 +4,8 @@ const User = require("../models/userModels");
 
 const userRegistration = async(req,res) => {
     const {email,password,role} = req.body;
+    // const {userDetails} = req.body;
+    // console.log("UserDetails:",userDetails)
     User.createUser(email,password,role,(err,newUser) => {
         if(err){
             return res.status(200).json({message:"Email already exists",success:false})
@@ -15,6 +17,7 @@ const userRegistration = async(req,res) => {
 
 const loginUser = async(req,res) => {
     const {email,password} = req.body;
+    // console.log("LoginEmail:",email,password)
     User.getByEmail(email,async(err,user) => {
         if(err || user===undefined){
             // console.log("Error:",err)
@@ -31,7 +34,7 @@ const loginUser = async(req,res) => {
             res.status(200).json({jwtToken:token,success:true,message:"Login Success",user})
         }  
     })
-};
+}
 
 const profileDetails = (req,res) => {
     const {email} = req;
@@ -47,9 +50,9 @@ const profileDetails = (req,res) => {
 }
 
 const deleteSpecificUser = async(req,res) => {
-    const {username} = req.body;
+    const {id} = req.params;
     // console.log("Username:",username)
-    User.deleteUser(username,(err,user) => {
+    User.deleteUser(id,(err,user) => {
         if(err){
             console.log("Error:",err)
             return res.status(200).json({message:"Invalid username",success:false})

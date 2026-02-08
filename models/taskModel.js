@@ -25,9 +25,18 @@ const Tasks = {
     },
 
     updateTaskById:async (id,title, description, createdBy, callback) => {
-        const tasksQuery = `UPDATE tasks SET title='${title}', description='${description}', createdBy='${createdBy}' WHERE id=${id}`;
-        db.run(tasksQuery,function(err,newTask){
-            callback(err,newTask)
+        const checkTaskByIdQuery = `SELECT * FROM tasks WHERE id=${id}`;
+        db.get(checkTaskByIdQuery,function(err,task){
+            if(err){
+                return callback(err,null)
+            }
+            if(!task){
+                return callback(new Error("Task not found"),null)
+            }
+            const tasksQuery = `UPDATE tasks SET title='${title}', description='${description}', createdBy='${createdBy}',createdAt=datetime('now') WHERE id=${id}`;
+            db.run(tasksQuery,function(err,newTask){
+                callback(err,newTask)
+            })
         })
     },
 
